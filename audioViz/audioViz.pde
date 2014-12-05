@@ -10,6 +10,15 @@ int sides;
 float r;
 float mult;
 
+int colorIndex;
+color currentColor;
+color[] colors = {
+  color(255, 255, 255),
+  color(255, 0, 0),
+  color(0, 255, 0),
+  color(0, 0, 255)
+};
+
 void setup() {
   size(500, 500, P2D); 
   minim = new Minim(this);
@@ -19,6 +28,8 @@ void setup() {
   sides = 360;
   r = 100;
   mult = 200;
+  colorIndex = 0;
+  currentColor = colors[colorIndex];
 }
 
 void draw() {
@@ -35,7 +46,7 @@ void draw() {
     float x = z * cos(radians(i *angle));
     float y = z * sin(radians(i *angle));
     poly.noFill();
-    poly.stroke(255,255,255, 120);
+    poly.stroke(currentColor, 120);
     poly.vertex(x, y);
   }
   poly.endShape(CLOSE);
@@ -47,4 +58,22 @@ void draw() {
 void mouseMoved() {
   mult = map(mouseX, 0, width, 0, 400);
   r = map(mouseY, 0, height, 0, 200);
+}
+
+void keyPressed() {
+  if (keyCode == UP) {
+    if (colorIndex == colors.length-1) {
+      colorIndex = 0;
+    } else {
+      colorIndex++;
+    }
+    currentColor = colors[colorIndex];
+  } else if (keyCode == DOWN) {
+    if (colorIndex == 0) {
+      colorIndex = colors.length-1;
+    } else {
+      colorIndex--;
+    }
+    currentColor = colors[colorIndex];
+  }
 }
