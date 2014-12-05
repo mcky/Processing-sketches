@@ -9,7 +9,6 @@ PShape poly;
 int sides;
 float r;
 float mult;
-float add;
 
 void setup() {
   size(500, 500, P2D); 
@@ -20,7 +19,6 @@ void setup() {
   sides = 360;
   r = 100;
   mult = 200;
-  add = 30;
 }
 
 void draw() {
@@ -31,7 +29,7 @@ void draw() {
   poly = createShape();
   poly.beginShape();
   for (int i = 0; i < sides; i++) {
-    float audio = (song.mix.get(i) * mult) + add;
+    float audio = (song.mix.get(i) * mult) + 30;
     float angle = 360/sides;
     float z = r + audio;
     float x = z * cos(radians(i *angle));
@@ -43,4 +41,10 @@ void draw() {
   poly.endShape(CLOSE);
   
   shape(poly, width/2, height/2);
+}
+
+
+void mouseMoved() {
+  mult = map(mouseX, 0, width, 0, 400);
+  r = map(mouseY, 0, height, 0, 200);
 }
