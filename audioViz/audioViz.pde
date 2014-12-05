@@ -75,5 +75,21 @@ void keyPressed() {
       colorIndex--;
     }
     currentColor = colors[colorIndex];
+  } else if (keyCode == LEFT) {
+    if (sides == 360) {
+      sides = 10;
+    } else if(sides == 3) {
+      sides = 360;
+    } else {
+      sides--;
+    }
+  } else if (keyCode == RIGHT) {
+    if (sides == 360) {
+      sides = 3;
+    } else if(sides > 10) {
+      sides = 360;
+    } else {
+      sides++;
+    }
   }
 }
