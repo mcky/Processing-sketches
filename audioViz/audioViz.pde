@@ -5,6 +5,10 @@ Minim minim;
 AudioPlayer song;
 FFT fft;
 
+String songName;
+boolean songLoaded = false;
+boolean songPlaying = false;
+
 PShape poly;
 int sides;
 float r;
@@ -22,17 +26,34 @@ color[] colors = {
 void setup() {
   size(500, 500, P2D); 
   minim = new Minim(this);
-  song = minim.loadFile("song.mp3", 512);
-  song.play();
   background(0);
   sides = 360;
   r = 100;
   mult = 200;
   colorIndex = 0;
   currentColor = colors[colorIndex];
+  
+  selectInput("Select input", "fileSelected");  
 }
 
+
 void draw() {
+  if (songLoaded) {
+    if (!songPlaying) {
+      song = minim.loadFile(songName, 512);
+      song.play();
+      songPlaying = true;
+    }
+    audioViz();
+  }
+}
+
+void fileSelected(File selection) {
+  songName = selection.getAbsolutePath(); 
+  songLoaded = true;
+}
+
+void audioViz() {
   noStroke();
   fill(0,0,0,50);
   rect(0,0,width,height);
@@ -53,7 +74,6 @@ void draw() {
   
   shape(poly, width/2, height/2);
 }
-
 
 void mouseMoved() {
   mult = map(mouseX, 0, width, 0, 400);
