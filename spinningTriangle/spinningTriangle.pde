@@ -29,5 +29,5 @@ void reset() {
   x1 = 0;
   y2 = 0;
   x3 = width;
-  y3 = height; 
+  y3 = height;
 }
