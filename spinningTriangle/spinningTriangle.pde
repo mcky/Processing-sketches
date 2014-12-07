@@ -1,6 +1,4 @@
 int x1;
-int y1;
-int x2;
 int y2;
 int x3;
 int y3;
@@ -24,14 +22,12 @@ void draw() {
     y3--;
   else
     reset();
-  triangle(x1, y1, x2, y2, x3, y3);
+  triangle(x1, 0, width, y2, x3, y3);
 }
 
 void reset() {
   x1 = 0;
-  y1 = 0;
-  x2 = width;
   y2 = 0;
   x3 = width;
-  y3 = height;
+  y3 = height; 
 }
